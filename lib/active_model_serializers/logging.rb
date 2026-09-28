@@ -101,7 +101,8 @@ module ActiveModelSerializers
     end
 
     def logger_tagged_by_active_model_serializers?
-      ActiveModelSerializers.logger.formatter.current_tags.include?('active_model_serializers'.freeze)
+      formatter = ActiveModelSerializers.logger.formatter
+      formatter.respond_to?(:current_tags) && formatter.current_tags.include?('active_model_serializers'.freeze)
     end
 
     class LogSubscriber < ActiveSupport::LogSubscriber
